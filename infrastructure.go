@@ -20,10 +20,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/GoNeo/rpcclient/neojson"
 	// "github.com/btcsuite/btcd/btcjson"
 	// "github.com/btcsuite/go-socks/socks"
 	// "github.com/btcsuite/websocket"
+	"github.com/GoChainRpc/xmrrpc/xmrjson"
 )
 
 var (
@@ -283,7 +283,7 @@ type (
 	// to be valid (according to JSON-RPC 1.0 spec), ID may not be nil.
 	rawResponse struct {
 		Result json.RawMessage   `json:"result"`
-		Error  *neojson.RPCError `json:"error"`
+		Error  *xmrjson.RPCError `json:"error"`
 	}
 )
 
@@ -877,14 +877,14 @@ func (c *Client) sendRequest(jReq *jsonRequest) {
 // configuration of the client.
 func (c *Client) sendCmd(cmd interface{}) chan *response {
 	// Get the method associated with the command.
-	method, err := neojson.CmdMethod(cmd)
+	method, err := xmrjson.CmdMethod(cmd)
 	if err != nil {
 		return newFutureError(err)
 	}
 
 	// Marshal the command.
 	id := c.NextID()
-	marshalledJSON, err := neojson.MarshalCmd(id, cmd)
+	marshalledJSON, err := xmrjson.MarshalCmd(id, cmd)
 	if err != nil {
 		return newFutureError(err)
 	}

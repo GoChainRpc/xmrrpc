@@ -69,7 +69,8 @@ func (r FutureGetTransfersResult) Receive() (*xmrjson.GetTransfersResult, error)
 // the returned instance.
 //
 // See GetTransaction for the blocking version and more details.
-func (c *Client) GetTransactionAsync(in, out, pool, failed, filter_by_hieght bool, min_height, max_height int64) FutureGetTransfersResult {
+func (c *Client) GetTransactionAsync(in, out, pool, failed, filter_by_hieght bool,
+	min_height, max_height int64) FutureGetTransfersResult {
 	cmd := xmrjson.NewGetTransfersCmd(in, out, pool, failed, filter_by_hieght, min_height, max_height)
 	return c.sendCmd(cmd)
 }
@@ -77,7 +78,8 @@ func (c *Client) GetTransactionAsync(in, out, pool, failed, filter_by_hieght boo
 // GetTransaction returns detailed information about a wallet transaction.
 //
 // See GetRawTransaction to return the raw transaction instead.
-func (c *Client) GetTransaction(in, out, pool, failed, filter_by_hieght bool, min_height, max_height int64) (*xmrjson.GetTransfersResult, error) {
+func (c *Client) GetTransaction(in, out, pool, failed, filter_by_hieght bool,
+	min_height, max_height int64) (*xmrjson.GetTransfersResult, error) {
 
 	return c.GetTransactionAsync(in, out, pool, failed, filter_by_hieght, min_height, max_height).Receive()
 }

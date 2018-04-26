@@ -27,9 +27,9 @@ type GetTransfersCmd struct {
 	Pool   bool `json:"pool"`
 	Failed bool `json:"failed"`
 
-	FilterByHeight bool `json:"filter_by_height"`
-	MinHeight      int64  `json:"min_height"`
-	MaxHeight      int64  `json:"max_height"`
+	FilterByHeight bool  `json:"filter_by_height"`
+	MinHeight      int64 `json:"min_height"`
+	MaxHeight      int64 `json:"max_height"`
 }
 
 // NewGetTransfersCmd returns a new instance which can be used to issue a
@@ -37,7 +37,8 @@ type GetTransfersCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewGetTransfersCmd(in, out, pool, failed, filter_by_hieght bool, min_height, max_height int64) *GetTransfersCmd {
+func NewGetTransfersCmd(in, out, pool, failed, filter_by_hieght bool,
+	min_height, max_height int64) *GetTransfersCmd {
 	return &GetTransfersCmd{
 		In:     in,
 		Out:    out,
@@ -79,7 +80,9 @@ func NewTransferCmd(transferDestination []TransferDestination, payment_id string
 
 func init() {
 	// The commands in this file are only usable with a wallet server.
-	flags := UFWalletOnly
+	//flags := UFWalletOnly
+	flags := UsageFlag(0)
+
 
 	MustRegisterCmd("getheight", (*GetHeightCmd)(nil), flags)
 	MustRegisterCmd("getbalance", (*GetBalanceCmd)(nil), flags)
