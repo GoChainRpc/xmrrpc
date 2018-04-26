@@ -52,10 +52,11 @@ func MarshalCmd(id interface{}, cmd interface{}) ([]byte, error) {
 	// Create a slice of interface values in the order of the struct fields
 	// while respecting pointer fields as optional params and only adding
 	// them if they are non-nil.
-	params := makeParams(rt.Elem(), rv.Elem())
+	//params := makeParams(rt.Elem(), rv.Elem())
+
 
 	// Generate and marshal the final JSON-RPC request.
-	rawCmd, err := NewRequest(id, method, params)
+	rawCmd, err := NewRequest(id, method, cmd)
 	if err != nil {
 		return nil, err
 	}
@@ -103,6 +104,7 @@ func populateDefaults(numParams int, info *methodInfo, rv reflect.Value) {
 // UnmarshalCmd unmarshals a JSON-RPC request into a suitable concrete command
 // so long as the method type contained within the marshalled request is
 // registered.
+/**
 func UnmarshalCmd(r *Request) (interface{}, error) {
 	registerLock.RLock()
 	rtp, ok := methodToConcreteType[r.Method]
@@ -155,6 +157,7 @@ func UnmarshalCmd(r *Request) (interface{}, error) {
 
 	return rvp.Interface(), nil
 }
+**/
 
 // isNumeric returns whether the passed reflect kind is a signed or unsigned
 // integer of any magnitude or a float of any magnitude.

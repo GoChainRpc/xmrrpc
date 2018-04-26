@@ -22,14 +22,14 @@ func NewGetBalanceCmd() *GetBalanceCmd {
 
 // GetTransactionCmd defines the gettransaction JSON-RPC command.
 type GetTransfersCmd struct {
-	In     bool `json:"in"`
-	Out    bool `json:"out"`
-	Pool   bool `json:"pool"`
-	Failed bool `json:"failed"`
+	In     bool `json:"in,omitempty"`
+	Out    bool `json:"out,omitempty"`
+	Pool   bool `json:"pool,omitempty"`
+	Failed bool `json:"failed,omitempty"`
 
-	FilterByHeight bool  `json:"filter_by_height"`
-	MinHeight      int64 `json:"min_height"`
-	MaxHeight      int64 `json:"max_height"`
+	FilterByHeight bool  `json:"filter_by_height,omitempty"`
+	MinHeight      int64 `json:"min_height,omitempty"`
+	MaxHeight      int64 `json:"max_height,omitempty"`
 }
 
 // NewGetTransfersCmd returns a new instance which can be used to issue a
@@ -80,9 +80,7 @@ func NewTransferCmd(transferDestination []TransferDestination, payment_id string
 
 func init() {
 	// The commands in this file are only usable with a wallet server.
-	//flags := UFWalletOnly
-	flags := UsageFlag(0)
-
+	flags := UFWalletOnly
 
 	MustRegisterCmd("getheight", (*GetHeightCmd)(nil), flags)
 	MustRegisterCmd("getbalance", (*GetBalanceCmd)(nil), flags)

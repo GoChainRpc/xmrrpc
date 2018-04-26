@@ -29,8 +29,8 @@ type GetBalanceResult struct {
 }
 
 type GetTransfersResult struct {
-	In  []transferResult `json:"in"`
-	Out []transferResult `json:"out"`
+	In  []transferResult `json:"in,omitempty"`
+	Out []transferResult `json:"out,omitempty"`
 }
 
 type transferResult struct {

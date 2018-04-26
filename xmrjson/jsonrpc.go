@@ -46,10 +46,10 @@ func NewRPCError(code RPCErrorCode, message string) *RPCError {
 func IsValidIDType(id interface{}) bool {
 	switch id.(type) {
 	case int, int8, int16, int32, int64,
-		uint, uint8, uint16, uint32, uint64,
-		float32, float64,
-		string,
-		nil:
+	uint, uint8, uint16, uint32, uint64,
+	float32, float64,
+	string,
+	nil:
 		return true
 	default:
 		return false
@@ -63,10 +63,10 @@ func IsValidIDType(id interface{}) bool {
 // requests, however this struct it being exported in case the caller wants to
 // construct raw requests for some reason.
 type Request struct {
-	Jsonrpc string            `json:"jsonrpc"`
-	Method  string            `json:"method"`
-	Params  []json.RawMessage `json:"params"`
-	ID      interface{}       `json:"id"`
+	Jsonrpc string      `json:"jsonrpc"`
+	Method  string      `json:"method"`
+	Params  interface{} `json:"params"`
+	ID      interface{} `json:"id"`
 }
 
 // NewRequest returns a new JSON-RPC 1.0 request object given the provided id,
@@ -77,27 +77,17 @@ type Request struct {
 // Typically callers will instead want to create a registered concrete command
 // type with the NewCmd or New<Foo>Cmd functions and call the MarshalCmd
 // function with that command to generate the marshalled JSON-RPC request.
-func NewRequest(id interface{}, method string, params []interface{}) (*Request, error) {
+func NewRequest(id interface{}, method string, params interface{}) (*Request, error) {
 	if !IsValidIDType(id) {
 		str := fmt.Sprintf("the id of type '%T' is invalid", id)
 		return nil, makeError(ErrInvalidType, str)
-	}
-
-	rawParams := make([]json.RawMessage, 0, len(params))
-	for _, param := range params {
-		marshalledParam, err := json.Marshal(param)
-		if err != nil {
-			return nil, err
-		}
-		rawMessage := json.RawMessage(marshalledParam)
-		rawParams = append(rawParams, rawMessage)
 	}
 
 	return &Request{
 		Jsonrpc: "1.0",
 		ID:      id,
 		Method:  method,
-		Params:  rawParams,
+		Params:  params,
 	}, nil
 }
 
