@@ -35,18 +35,18 @@ type GetTransfersResult struct {
 
 type transferResult struct {
 	Address         string `json:"address"`
-	Amount          int64    `json:"amount"`
+	Amount          int64  `json:"amount"`
 	DoubleSpendSeen bool   `json:"double_spend_seen"`
-	Fee             int64    `json:"fee"`
-	Height          int64    `json:"height"`
-	Note            int64 `json:"note"`
+	Fee             int64  `json:"fee"`
+	Height          int64  `json:"height"`
+	Note            string `json:"note"`
 	PaymentID       string `json:"payment_id"`
 	SubaddrIndex struct {
-		Major int64 `json:"major"`
-		Minor int64 `json:"minor"`
+		Major int `json:"major"`
+		Minor int `json:"minor"`
 	} `json:"subaddr_index"`
-	Timestamp  int64    `json:"timestamp"`
+	Timestamp  int64  `json:"timestamp"`
 	Txid       string `json:"txid"`
 	Type       string `json:"type"`
-	UnlockTime int64    `json:"unlock_time"`
+	UnlockTime int64  `json:"unlock_time"`
 }
