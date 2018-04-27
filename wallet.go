@@ -101,13 +101,13 @@ func (r FutureTransferResult) Receive() (*xmrjson.TransferResult, error) {
 	return &transferResult, nil
 }
 
-func (c *Client) TransferAsync(transferDestination []xmrjson.TransferDestination, payment_id string) FutureTransferResult {
-	cmd := xmrjson.NewTransferCmd(transferDestination, payment_id)
+func (c *Client) TransferAsync(transferDestination []xmrjson.TransferDestination, fee int64, payment_id string) FutureTransferResult {
+	cmd := xmrjson.NewTransferCmd(transferDestination, fee, payment_id)
 	return c.sendCmd(cmd)
 }
 
-func (c *Client) Transfer(transferDestination []xmrjson.TransferDestination, payment_id string) (*xmrjson.TransferResult, error) {
-	return c.TransferAsync(transferDestination, payment_id).Receive()
+func (c *Client) Transfer(transferDestination []xmrjson.TransferDestination, fee int64, payment_id string) (*xmrjson.TransferResult, error) {
+	return c.TransferAsync(transferDestination, fee, payment_id).Receive()
 }
 
 // FutureGetBalanceResult is a future promise to deliver the result of a
