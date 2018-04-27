@@ -53,12 +53,13 @@ func NewGetTransfersCmd(in, out, pool, failed, filter_by_hieght bool,
 
 type TransferDestination struct {
 	Address string `json:"address"`
-	Amount  int    `json:"amount"`
+	Amount  int64    `json:"amount"`
 }
 
 // SendToAddressCmd defines the sendtoaddress JSON-RPC command.
 type TransferCmd struct {
 	Destinations []TransferDestination `json:"destinations"`
+	Fee          int64                 `json:"fee"`
 	PaymentID    string                `json:"payment_id"`
 	GetTxKey     bool                  `json:"get_tx_key"`
 	Mixin        int                   `json:"mixin"`
@@ -69,9 +70,10 @@ type TransferCmd struct {
 //
 // The parameters which are pointers indicate they are optional.  Passing nil
 // for optional parameters will use the default value.
-func NewTransferCmd(transferDestination []TransferDestination, payment_id string) *TransferCmd {
+func NewTransferCmd(transferDestination []TransferDestination, fee int64, payment_id string) *TransferCmd {
 	return &TransferCmd{
 		Destinations: transferDestination,
+		Fee:          fee,
 		PaymentID:    payment_id,
 		GetTxKey:     true,
 		Mixin:        2,
