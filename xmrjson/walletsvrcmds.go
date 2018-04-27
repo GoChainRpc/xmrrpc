@@ -74,7 +74,7 @@ func NewTransferCmd(transferDestination []TransferDestination, fee int64, paymen
 	if fee == 0 {
 		return &TransferCmd{
 			Destinations: transferDestination,
-			//Fee:          fee,
+			// auto set fee when 0 . Fee:          fee,
 			PaymentID: payment_id,
 			GetTxKey:  true,
 			Mixin:     2,
