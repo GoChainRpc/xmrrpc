@@ -60,7 +60,7 @@ func main() {
 
 	transferByTxid, err := client.GetTransferByTxid("062901dc61543a57d9ac112d08274501c10119566482bc06d963fb9c3ddd60b7")
 	if err != nil {
-		log.Fatal("GetTransferByTxid:", err)
+		log.Fatal("GetTransferByTxid_err:", err)
 	} else {
 		log.Println("GetTransferByTxid:", transferByTxid)
 	}
@@ -68,6 +68,15 @@ func main() {
 	err = client.OpenWallet("myWallet", "123456")
 	if err != nil {
 		log.Fatal("OpenWallet:", err)
+	} else {
+		log.Println("OpenWallet success")
 	}
 
+
+	err = client.CreateWallet("myWallet", "123456")
+	if err != nil {
+		log.Fatal("CreateWallet:", err)
+	} else {
+		log.Println("CreateWallet success")
+	}
 }

@@ -179,7 +179,10 @@ func (c *Client) GetTransferByTxid(txid string) (*xmrjson.GetTransferByTxidResul
 type FutureOpenWalletResult chan *response
 
 func (r FutureOpenWalletResult) Receive() error {
-
+	_, err := receiveFuture(r)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 func (c *Client) OpenWalletAsync(filename, password string) FutureOpenWalletResult {
@@ -194,6 +197,10 @@ func (c *Client) OpenWallet(filename, password string) (error) {
 type FutureCreateWalletResult chan *response
 
 func (r FutureCreateWalletResult) Receive() error {
+	_, err := receiveFuture(r)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 func (c *Client) CreateWalletAsync(filename, password string) FutureCreateWalletResult {

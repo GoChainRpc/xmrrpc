@@ -135,7 +135,7 @@ func init() {
 	MustRegisterCmd("get_transfers", (*GetTransfersCmd)(nil), flags)
 	MustRegisterCmd("transfer", (*TransferCmd)(nil), flags)
 	MustRegisterCmd("get_transfer_by_txid", (*GetTransferByTxidCmd)(nil), flags)
-	MustRegisterCmd("open_wallet", (*GetTransferByTxidCmd)(nil), flags)
-	MustRegisterCmd("create_wallet", (*GetTransferByTxidCmd)(nil), flags)
+	MustRegisterCmd("open_wallet", (*OpenWalletCmd)(nil), flags)
+	MustRegisterCmd("create_wallet", (*CreateWalletCmd)(nil), flags)
 
 }
