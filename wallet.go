@@ -151,3 +151,55 @@ func (c *Client) GetBalanceAsync() FutureGetBalanceResult {
 func (c *Client) GetBalance() (*xmrjson.GetBalanceResult, error) {
 	return c.GetBalanceAsync().Receive()
 }
+
+// async get transfer by txid
+type FutureGetTransferByTxidResult chan *response
+
+func (r FutureGetTransferByTxidResult) Receive() (*xmrjson.GetTransferByTxidResult, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+	var getTransferByTxid xmrjson.GetTransferByTxidResult
+	err = json.Unmarshal(res, &getTransferByTxid)
+	if err != nil {
+		return nil, err
+	}
+	return &getTransferByTxid, nil
+}
+func (c *Client) GetTransferByTxidAsync(txid string) FutureGetTransferByTxidResult {
+	cmd := xmrjson.NewGetTransferByTxidCmd(txid)
+	return c.sendCmd(cmd)
+}
+func (c *Client) GetTransferByTxid(txid string) (*xmrjson.GetTransferByTxidResult, error) {
+	return c.GetTransferByTxidAsync(txid).Receive()
+}
+
+// async open wallet
+type FutureOpenWalletResult chan *response
+
+func (r FutureOpenWalletResult) Receive() error {
+
+	return nil
+}
+func (c *Client) OpenWalletAsync(filename, password string) FutureOpenWalletResult {
+	cmd := xmrjson.NewOpenWalletCmd(filename, password)
+	return c.sendCmd(cmd)
+}
+func (c *Client) OpenWallet(filename, password string) (error) {
+	return c.OpenWalletAsync(filename, password).Receive()
+}
+
+// async create wallet
+type FutureCreateWalletResult chan *response
+
+func (r FutureCreateWalletResult) Receive() error {
+	return nil
+}
+func (c *Client) CreateWalletAsync(filename, password string) FutureCreateWalletResult {
+	cmd := xmrjson.NewCreateWalletCmd(filename, password)
+	return c.sendCmd(cmd)
+}
+func (c *Client) CreateWallet(filename, password string) (error) {
+	return c.CreateWalletAsync(filename, password).Receive()
+}

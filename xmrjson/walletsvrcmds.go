@@ -90,6 +90,42 @@ func NewTransferCmd(transferDestination []TransferDestination, fee int64, paymen
 	}
 }
 
+type GetTransferByTxidCmd struct {
+	Txid string `json:"txid"`
+}
+
+func NewGetTransferByTxidCmd(txid string) *GetTransferByTxidCmd {
+	return &GetTransferByTxidCmd{
+		Txid: txid,
+	}
+}
+
+type OpenWalletCmd struct {
+	Filename string `json:"filename"`
+	Password string `json:"password"`
+}
+
+func NewOpenWalletCmd(filename, password string) *OpenWalletCmd {
+	return &OpenWalletCmd{
+		Filename: filename,
+		Password: password,
+	}
+}
+
+type CreateWalletCmd struct {
+	Filename string `json:"filename"`
+	Language string `json:"language"`
+	Password string `json:"password"`
+}
+
+func NewCreateWalletCmd(filename, password string) *CreateWalletCmd {
+	return &CreateWalletCmd{
+		Filename: filename,
+		Password: password,
+		Language: "English",
+	}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := UFWalletOnly
@@ -98,5 +134,8 @@ func init() {
 	MustRegisterCmd("getbalance", (*GetBalanceCmd)(nil), flags)
 	MustRegisterCmd("get_transfers", (*GetTransfersCmd)(nil), flags)
 	MustRegisterCmd("transfer", (*TransferCmd)(nil), flags)
+	MustRegisterCmd("get_transfer_by_txid", (*GetTransferByTxidCmd)(nil), flags)
+	MustRegisterCmd("open_wallet", (*GetTransferByTxidCmd)(nil), flags)
+	MustRegisterCmd("create_wallet", (*GetTransferByTxidCmd)(nil), flags)
 
 }
