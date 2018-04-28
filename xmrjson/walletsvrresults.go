@@ -53,24 +53,20 @@ type transferResult struct {
 
 type GetTransferByTxidResult struct {
 	Transfer struct {
-		Address      string `json:"address"`
-		Amount       int    `json:"amount"`
-		Destinations []struct {
-			Address string `json:"address"`
-			Amount  int    `json:"amount"`
-		} `json:"destinations"`
+		Address         string `json:"address"`
+		Amount          int64    `json:"amount"`
 		DoubleSpendSeen bool   `json:"double_spend_seen"`
-		Fee             int    `json:"fee"`
-		Height          int    `json:"height"`
+		Fee             int64    `json:"fee"`
+		Height          int64    `json:"height"`
 		Note            string `json:"note"`
 		PaymentID       string `json:"payment_id"`
 		SubaddrIndex    struct {
-			Major int `json:"major"`
-			Minor int `json:"minor"`
+			Major int64 `json:"major"`
+			Minor int64 `json:"minor"`
 		} `json:"subaddr_index"`
-		Timestamp  int    `json:"timestamp"`
+		Timestamp  int64    `json:"timestamp"`
 		Txid       string `json:"txid"`
 		Type       string `json:"type"`
-		UnlockTime int    `json:"unlock_time"`
+		UnlockTime int64    `json:"unlock_time"`
 	} `json:"transfer"`
 }
