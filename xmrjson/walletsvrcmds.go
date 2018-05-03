@@ -84,7 +84,7 @@ func NewTransferCmd(transferDestination []TransferDestination, fee int64, paymen
 			// auto set fee when 0 . Fee:          fee,
 			PaymentID: payment_id,
 			GetTxKey:  true,
-			Mixin:     2,
+			Mixin:     0,
 		}
 	} else {
 		return &TransferCmd{
@@ -92,7 +92,7 @@ func NewTransferCmd(transferDestination []TransferDestination, fee int64, paymen
 			Fee:          fee,
 			PaymentID:    payment_id,
 			GetTxKey:     true,
-			Mixin:        2,
+			Mixin:        0,
 		}
 	}
 }
