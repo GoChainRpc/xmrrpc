@@ -152,6 +152,30 @@ func (c *Client) GetBalance() (*xmrjson.GetBalanceResult, error) {
 	return c.GetBalanceAsync().Receive()
 }
 
+type FutureGetAddressResult chan *response
+
+func (r FutureGetAddressResult) Receive() (*xmrjson.GetAddressResult, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+	var getAddressResult xmrjson.GetAddressResult
+	err = json.Unmarshal(res, &getAddressResult)
+	if err != nil {
+		return nil, err
+	}
+	return &getAddressResult, nil
+}
+
+func (c *Client) GetAddressAsync() FutureGetAddressResult {
+	cmd := xmrjson.NewGetAddressCmd()
+	return c.sendCmd(cmd)
+}
+
+func (c *Client) GetAddress() (*xmrjson.GetAddressResult,error) {
+	return c.GetAddressAsync().Receive()
+}
+
 // async get transfer by txid
 type FutureGetTransferByTxidResult chan *response
 

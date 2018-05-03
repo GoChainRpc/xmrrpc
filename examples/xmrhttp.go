@@ -39,6 +39,13 @@ func main() {
 		log.Println("transfersResult:", transfersResult)
 	}
 
+	getAddressResult ,err :=  client.GetAddress()
+	if err  != nil {
+		log.Fatal("getAddress_err:", err)
+	} else {
+		log.Println("GetAddress:", getAddressResult)
+	}
+
 	//transferDestinations := []xmrjson.TransferDestination{}
 	//transferDestination := xmrjson.TransferDestination{}
 	//transferDestination.Address = "46fPzT8eJGZdkHuoQSXQSLK8yDFiDLPt4WeRMk5BA87SB7fmrurK2woB1RF9TdmNuUdmp9ZzTEgUMTCWBQiP3SUC2NVZ7Sb"

@@ -70,3 +70,13 @@ type GetTransferByTxidResult struct {
 		UnlockTime int64    `json:"unlock_time"`
 	} `json:"transfer"`
 }
+
+type GetAddressResult struct {
+	Address   string `json:"address"`
+	Addresses []struct {
+		Address      string `json:"address"`
+		AddressIndex int    `json:"address_index"`
+		Label        string `json:"label"`
+		Used         bool   `json:"used"`
+	} `json:"addresses"`
+}

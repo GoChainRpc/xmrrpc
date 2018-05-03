@@ -20,6 +20,13 @@ func NewGetBalanceCmd() *GetBalanceCmd {
 	return &GetBalanceCmd{}
 }
 
+type GetAddressCmd struct {
+}
+
+func NewGetAddressCmd() *GetAddressCmd {
+	return &GetAddressCmd{}
+}
+
 // GetTransactionCmd defines the gettransaction JSON-RPC command.
 type GetTransfersCmd struct {
 	In     bool `json:"in,omitempty"`
@@ -132,6 +139,7 @@ func init() {
 
 	MustRegisterCmd("getheight", (*GetHeightCmd)(nil), flags)
 	MustRegisterCmd("getbalance", (*GetBalanceCmd)(nil), flags)
+	MustRegisterCmd("getaddress", (*GetAddressCmd)(nil), flags)
 	MustRegisterCmd("get_transfers", (*GetTransfersCmd)(nil), flags)
 	MustRegisterCmd("transfer", (*TransferCmd)(nil), flags)
 	MustRegisterCmd("get_transfer_by_txid", (*GetTransferByTxidCmd)(nil), flags)
